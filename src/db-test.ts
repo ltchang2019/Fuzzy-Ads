@@ -69,9 +69,9 @@ const jsonData = {
     website: 'twitter.com'
 }
 
-// getClient()
-//     .then(client => listCollection(client, "Publishers"))
-//     .then(console.log)
+getClient()
+    .then(client => listCollection(client, "Publishers"))
+    .then(console.log)
 
 // getClient()
 //     .then(client => createEntity(client, jsonData))

@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { Button } from 'semantic-ui-react';
 import Web3 from 'web3';
 
-// let web3: Web3 | undefined = undefined;
-
+let web3: Web3 | undefined = undefined;
 class Login extends Component {
   state = { account: "" };
+
 
   async componentDidMount() {
     try {
@@ -15,14 +15,14 @@ class Login extends Component {
       window.alert('You need to allow MetaMask.');
       return;
     }
-
+    
     // account = await web3.eth.getCoinbase();
-    this.setState({ account: "0xc2eEC124f617aa6B17eFc22D4126CA65ce4A9DEb" });
+    this.setState({ account: ("0xc2eEC124f617aa6B17eFc22D4126CA65ce4A9DEb").toLowerCase() });
   }
 
   handleClick = async() => {
     const { account } = this.state;
-    fetch(`http://localhost:5000/api/user/${account}`)
+    fetch(`http://localhost:5000/api/users/${account}`)
       .then(response => response.json())
       .then(this.handleSignMessage)
   }
@@ -30,23 +30,14 @@ class Login extends Component {
   //shouldn't be of type <any>!!
   handleSignMessage = async (userInfo: any) => {
     const { _id, nonce } = userInfo;
-    
+    const message = `I am signing my one-time nonce: ${nonce}`;
     try {
-      const signature = await web3!.eth.personal.sign(
-        `I am signing my one-time nonce: ${nonce}`,
-        _id,
-        ''
-      );
-
-      return { _id, signature };
+      const signature = await web3!.eth.personal.sign(message, _id, '');
+      await web3!.eth.personal.ecRecover(message, signature);
+      // TODO: add JWT or some kind of login auth
     } catch(err) {
-      throw new Error('Must sign message to log in.');
+      throw new Error('Invalid signature.');
     }
-    // fetch(`http://localhost:5000/api/auth`, {
-    //   body: JSON.stringify(userInfo),
-    //   headers: { 'Content-Type': 'application/json' },
-    //   method: 'POST'
-    // }).then(response => response.json());
   }
 
   render() {

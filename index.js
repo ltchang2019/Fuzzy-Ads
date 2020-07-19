@@ -41,8 +41,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 exports.__esModule = true;
 var express_1 = __importDefault(require("express"));
 var hub_1 = require("@textile/hub");
-var _a = require('../../config'), API_KEY = _a.API_KEY, API_SECRET = _a.API_SECRET, DB_ID = _a.DB_ID;
+var body_parser_1 = __importDefault(require("body-parser"));
+var _a = require('./config'), API_KEY = _a.API_KEY, API_SECRET = _a.API_SECRET, DB_ID = _a.DB_ID;
 var app = express_1["default"]();
+app.use(body_parser_1["default"].json());
+app.use(function (req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', ['GET', 'POST']);
+    res.header('Access-Control-Allow-Headers', '*');
+    next();
+});
 var threadId = hub_1.ThreadID.fromString(DB_ID);
 function getClient() {
     return __awaiter(this, void 0, void 0, function () {
@@ -60,6 +68,7 @@ function getClient() {
         });
     });
 }
+// ______________ROUTES________________
 app.get('/api/users/:publicKey', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var publicKey, client, exists, _a, newPublisher;
     return __generator(this, function (_b) {
@@ -89,6 +98,14 @@ app.get('/api/users/:publicKey', function (req, res) { return __awaiter(void 0, 
                 return [3 /*break*/, 5];
             case 5: return [2 /*return*/];
         }
+    });
+}); });
+app.post('/api/auth', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        // const { _id, signature } = req.body;
+        console.log(req.body);
+        res.send(req.body);
+        return [2 /*return*/];
     });
 }); });
 var PORT = process.env.PORT || 5000;

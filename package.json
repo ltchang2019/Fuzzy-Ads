@@ -13,6 +13,8 @@
     "@types/node": "^12.12.50",
     "@types/react": "^16.9.43",
     "@types/react-dom": "^16.9.8",
+    "body-parser": "^1.19.0",
+    "concurrently": "^5.2.0",
     "dotenv": "^8.2.0",
     "emittery": "^0.7.1",
     "eth-sig-util": "^2.5.3",
@@ -25,7 +27,7 @@
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.88.2",
     "solc": "^0.6.11",
-    "typescript": "^3.7.5",
+    "typescript": "^3.9.7",
     "web3": "^1.0.0-beta.26",
     "ws": "^7.3.1"
   },
@@ -33,7 +35,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "server": "node index.js",
+    "client": "npm start",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "eslintConfig": {
     "extends": "react-app"
