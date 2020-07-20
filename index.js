@@ -42,7 +42,11 @@ exports.__esModule = true;
 var express_1 = __importDefault(require("express"));
 var hub_1 = require("@textile/hub");
 var body_parser_1 = __importDefault(require("body-parser"));
-var _a = require('./config'), API_KEY = _a.API_KEY, API_SECRET = _a.API_SECRET, DB_ID = _a.DB_ID;
+var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+var eth_sig_util_1 = require("eth-sig-util");
+var ethereumjs_util_1 = require("ethereumjs-util");
+var _a = require('./config'), API_KEY = _a.API_KEY, API_SECRET = _a.API_SECRET, DB_ID = _a.DB_ID, JWT_SECRET = _a.JWT_SECRET;
+require('dotenv').config();
 var app = express_1["default"]();
 app.use(body_parser_1["default"].json());
 app.use(function (req, res, next) {
@@ -69,8 +73,8 @@ function getClient() {
     });
 }
 // ______________ROUTES________________
-app.get('/api/users/:publicKey', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var publicKey, client, exists, _a, newPublisher;
+app.get('/users/:publicKey', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var publicKey, client, user, _a, newPublisher;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
@@ -80,12 +84,12 @@ app.get('/api/users/:publicKey', function (req, res) { return __awaiter(void 0, 
                 client = _b.sent();
                 _b.label = 2;
             case 2:
-                _b.trys.push([2, 4, , 5]);
+                _b.trys.push([2, 4, , 6]);
                 return [4 /*yield*/, client.findByID(threadId, "Publishers", publicKey)];
             case 3:
-                exists = _b.sent();
-                res.send(exists.instance);
-                return [3 /*break*/, 5];
+                user = _b.sent();
+                res.send(user.instance);
+                return [3 /*break*/, 6];
             case 4:
                 _a = _b.sent();
                 newPublisher = {
@@ -93,21 +97,64 @@ app.get('/api/users/:publicKey', function (req, res) { return __awaiter(void 0, 
                     nonce: Math.floor(Math.random() * 10000),
                     website: ""
                 };
-                client.create(threadId, "Publishers", [newPublisher]);
+                return [4 /*yield*/, client.create(threadId, "Publishers", [newPublisher])];
+            case 5:
+                _b.sent();
                 res.send(newPublisher);
-                return [3 /*break*/, 5];
-            case 5: return [2 /*return*/];
+                return [3 /*break*/, 6];
+            case 6: return [2 /*return*/];
         }
     });
 }); });
-app.post('/api/auth', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    return __generator(this, function (_a) {
-        // const { _id, signature } = req.body;
-        console.log(req.body);
-        res.send(req.body);
-        return [2 /*return*/];
+app.post('/users/auth', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var _a, _id, signature, client, user, msg, msgBufferHex, address, accessToken;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0:
+                _a = req.body, _id = _a._id, signature = _a.signature;
+                return [4 /*yield*/, getClient()];
+            case 1:
+                client = _b.sent();
+                return [4 /*yield*/, client.findByID(threadId, "Publishers", _id)];
+            case 2:
+                user = _b.sent();
+                msg = "I am signing my one-time nonce: " + user.instance.nonce;
+                msgBufferHex = ethereumjs_util_1.bufferToHex(Buffer.from(msg, 'utf8'));
+                address = eth_sig_util_1.recoverPersonalSignature({
+                    data: msgBufferHex,
+                    sig: signature
+                });
+                //check sig and public key match
+                if (address.toLowerCase() !== _id.toLowerCase()) {
+                    res.status(401).send({ error: 'Signature verification failed' });
+                }
+                accessToken = jsonwebtoken_1["default"].sign(_id, JWT_SECRET);
+                res.json({ token: accessToken });
+                return [2 /*return*/];
+        }
     });
 }); });
+app.get('/users/publisher', verifyToken, function (req, res) {
+    jsonwebtoken_1["default"].verify(req.token, JWT_SECRET, function (err, authData) {
+        if (err) {
+            res.sendStatus(403);
+        }
+        else {
+            res.json("Hello Publisher!");
+        }
+    });
+});
+function verifyToken(req, res, next) {
+    var bearerHeader = req.headers['authorization'];
+    if (typeof bearerHeader !== 'undefined') {
+        var bearerToken = bearerHeader.split(' ')[1];
+        req.token = bearerToken;
+        next();
+    }
+    else {
+        res.sendStatus(403);
+    }
+}
 var PORT = process.env.PORT || 5000;
 app.listen(PORT, function () {
     console.log("listening on port " + PORT);

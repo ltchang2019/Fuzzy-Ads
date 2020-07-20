@@ -22,7 +22,7 @@ class Login extends Component {
 
   handleClick = async() => {
     const { account } = this.state;
-    fetch(`http://localhost:5000/api/users/${account}`)
+    fetch(`http://localhost:5000/users/${account}`)
       .then(response => response.json())
       .then(this.handleSignMessage)
   }
@@ -33,8 +33,17 @@ class Login extends Component {
     const message = `I am signing my one-time nonce: ${nonce}`;
     try {
       const signature = await web3!.eth.personal.sign(message, _id, '');
-      await web3!.eth.personal.ecRecover(message, signature);
-      // TODO: add JWT or some kind of login auth
+      
+      fetch(`http://localhost:5000/users/auth`, {
+        body: JSON.stringify({ _id, signature }),
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        method: 'POST'
+      })
+      .then(response => response.json())
+      .then(console.log);
+
     } catch(err) {
       throw new Error('Invalid signature.');
     }
