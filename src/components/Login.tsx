@@ -6,7 +6,6 @@ let web3: Web3 | undefined = undefined;
 class Login extends Component {
   state = { account: "" };
 
-
   async componentDidMount() {
     try {
       await (window as any).ethereum.enable();
@@ -22,7 +21,7 @@ class Login extends Component {
 
   handleClick = async() => {
     const { account } = this.state;
-    fetch(`http://localhost:5000/users/${account}`)
+    fetch(`http://localhost:5000/exists/${account}`)
       .then(response => response.json())
       .then(this.handleSignMessage)
   }
@@ -34,16 +33,18 @@ class Login extends Component {
     try {
       const signature = await web3!.eth.personal.sign(message, _id, '');
       
-      fetch(`http://localhost:5000/users/auth`, {
+      const res = await fetch(`http://localhost:5000/users/auth`, {
         body: JSON.stringify({ _id, signature }),
         headers: {
           'Content-Type': 'application/json'
         },
         method: 'POST'
-      })
-      .then(response => response.json())
-      .then(console.log);
-
+      });
+      
+      const result = await res.json(); 
+      if(result && result.token) {
+        console.log(result);
+      }
     } catch(err) {
       throw new Error('Invalid signature.');
     }

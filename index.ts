@@ -32,7 +32,7 @@ async function getClient() {
 
 // ______________ROUTES________________
 
-app.get('/users/:publicKey', async (req, res) => {
+app.get('/exists/:publicKey', async (req, res) => {
     const publicKey = req.params.publicKey;
     const client = await getClient();  //how to not call this every endpoint???
 
@@ -75,25 +75,26 @@ app.post('/users/auth', async (req, res) => {
     res.json({ token: accessToken });
 });
 
-app.get('/users/publisher', verifyToken, (req: AuthInfo, res: any) => {
-    jwt.verify(req.token, JWT_SECRET, (err: any, authData: any) => {
-        if(err) {
-            res.sendStatus(403);
-        } else {
-            res.json("Hello Publisher!")
-        }
-    })
+app.get('/publisher', verifyToken, (req: AuthInfo, res: any) => {
+    // console.log(req.user);
+    res.send("YOU ARE LOGGED IN");
 });
+
+// ______________MIDDLEWARES________________
 
 function verifyToken(req: any, res: any, next: any) {
     const bearerHeader = req.headers['authorization'];
-    if(typeof bearerHeader !== 'undefined') {
-        const bearerToken = bearerHeader.split(' ')[1];
-        req.token = bearerToken;
-        next();
-    } else {
-        res.sendStatus(403);
-    }
+    const token = bearerHeader && bearerHeader.split(' ')[1];
+    if(token == null) return res.sendStatus(401);
+
+    jwt.verify(token, JWT_SECRET, (err: any, user: any) => {
+        if(err) {
+            res.sendStatus(403);
+        } else {
+            req.user = user;
+            next();
+        }
+    });
 }
 
 const PORT = process.env.PORT || 5000;

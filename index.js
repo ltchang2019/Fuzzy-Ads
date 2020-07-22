@@ -73,7 +73,7 @@ function getClient() {
     });
 }
 // ______________ROUTES________________
-app.get('/users/:publicKey', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+app.get('/exists/:publicKey', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var publicKey, client, user, _a, newPublisher;
     return __generator(this, function (_b) {
         switch (_b.label) {
@@ -134,26 +134,25 @@ app.post('/users/auth', function (req, res) { return __awaiter(void 0, void 0, v
         }
     });
 }); });
-app.get('/users/publisher', verifyToken, function (req, res) {
-    jsonwebtoken_1["default"].verify(req.token, JWT_SECRET, function (err, authData) {
+app.get('/publisher', verifyToken, function (req, res) {
+    // console.log(req.user);
+    res.send("YOU ARE LOGGED IN");
+});
+// ______________MIDDLEWARES________________
+function verifyToken(req, res, next) {
+    var bearerHeader = req.headers['authorization'];
+    var token = bearerHeader && bearerHeader.split(' ')[1];
+    if (token == null)
+        return res.sendStatus(401);
+    jsonwebtoken_1["default"].verify(token, JWT_SECRET, function (err, user) {
         if (err) {
             res.sendStatus(403);
         }
         else {
-            res.json("Hello Publisher!");
+            req.user = user;
+            next();
         }
     });
-});
-function verifyToken(req, res, next) {
-    var bearerHeader = req.headers['authorization'];
-    if (typeof bearerHeader !== 'undefined') {
-        var bearerToken = bearerHeader.split(' ')[1];
-        req.token = bearerToken;
-        next();
-    }
-    else {
-        res.sendStatus(403);
-    }
 }
 var PORT = process.env.PORT || 5000;
 app.listen(PORT, function () {
