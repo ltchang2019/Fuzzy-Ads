@@ -4,7 +4,7 @@ import Web3 from 'web3';
 
 let web3: Web3 | undefined = undefined;
 class Login extends Component {
-  state = { account: "" };
+  state = { account: null };
 
   async componentDidMount() {
     try {
@@ -15,8 +15,8 @@ class Login extends Component {
       return;
     }
     
-    // account = await web3.eth.getCoinbase();
-    this.setState({ account: ("0xc2eEC124f617aa6B17eFc22D4126CA65ce4A9DEb").toLowerCase() });
+    const account = await web3.eth.getCoinbase();
+    this.setState({ account: account });
   }
 
   handleClick = async() => {
@@ -42,8 +42,9 @@ class Login extends Component {
       });
       
       const result = await res.json(); 
+      console.log(result);
       if(result && result.token) {
-        console.log(result);
+        this.setState({ account: _id });
       }
     } catch(err) {
       throw new Error('Invalid signature.');

@@ -1,4 +1,6 @@
 import express, { NextFunction } from 'express';
+import cookieSession from 'cookie-session';
+import cookieParser from 'cookie-parser';
 import { Client, KeyInfo, ThreadID, JSONSchema } from '@textile/hub';
 import bodyParser from 'body-parser';
 import jwt from 'jsonwebtoken';
@@ -6,12 +8,21 @@ import { AuthInfo } from './reqDefinitions';
 import { recoverPersonalSignature } from 'eth-sig-util';
 import { bufferToHex } from 'ethereumjs-util';
 
-const { API_KEY, API_SECRET, DB_ID, JWT_SECRET } = require('./config');
+const { API_KEY, API_SECRET, DB_ID, JWT_SECRET, COOKIE_KEY } = require('./config');
 require('dotenv').config();
 
 const app = express();
 
+app.set('trust proxy', 1)
 app.use(bodyParser.json());
+app.use(cookieParser());
+app.use(
+    cookieSession({
+        name: 'session',
+        maxAge: 24 * 60 * 60 * 1000,
+        keys: [COOKIE_KEY]
+    })
+);
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', ['GET', 'POST']);
@@ -70,14 +81,21 @@ app.post('/users/auth', async (req, res) => {
       res.status(401).send({ error: 'Signature verification failed' });
     }
 
-    //insert jwt if successful
-    const accessToken = jwt.sign(_id, JWT_SECRET);
-    res.json({ token: accessToken });
+    //insert user session if successful
+    req!.session!.id = _id;
+    console.log("SESSION:", req!.session!.id);
+    // const accessToken = jwt.sign(_id, JWT_SECRET);
+    // res.json({ token: accessToken });
 });
 
-app.get('/publisher', verifyToken, (req: AuthInfo, res: any) => {
+app.get('/publisher', verifyToken, (req, res) => {
     // console.log(req.user);
     res.send("YOU ARE LOGGED IN");
+});
+
+app.get('/current-user', (req, res) => {
+    console.log(req.session!.id);
+    res.send(req.session!.id);
 });
 
 // ______________MIDDLEWARES________________

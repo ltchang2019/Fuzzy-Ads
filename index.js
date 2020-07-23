@@ -40,15 +40,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 exports.__esModule = true;
 var express_1 = __importDefault(require("express"));
+var express_session_1 = __importDefault(require("express-session"));
+var cookie_parser_1 = __importDefault(require("cookie-parser"));
 var hub_1 = require("@textile/hub");
 var body_parser_1 = __importDefault(require("body-parser"));
 var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 var eth_sig_util_1 = require("eth-sig-util");
 var ethereumjs_util_1 = require("ethereumjs-util");
-var _a = require('./config'), API_KEY = _a.API_KEY, API_SECRET = _a.API_SECRET, DB_ID = _a.DB_ID, JWT_SECRET = _a.JWT_SECRET;
+var _a = require('./config'), API_KEY = _a.API_KEY, API_SECRET = _a.API_SECRET, DB_ID = _a.DB_ID, JWT_SECRET = _a.JWT_SECRET, COOKIE_KEY = _a.COOKIE_KEY;
 require('dotenv').config();
 var app = express_1["default"]();
+app.set('trust proxy', 1);
 app.use(body_parser_1["default"].json());
+app.use(cookie_parser_1["default"]());
+app.use(express_session_1["default"]({ secret: 'express-secret' }));
 app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', ['GET', 'POST']);
@@ -107,7 +112,7 @@ app.get('/exists/:publicKey', function (req, res) { return __awaiter(void 0, voi
     });
 }); });
 app.post('/users/auth', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, _id, signature, client, user, msg, msgBufferHex, address, accessToken;
+    var _a, _id, signature, client, user, msg, msgBufferHex, address;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
@@ -128,8 +133,9 @@ app.post('/users/auth', function (req, res) { return __awaiter(void 0, void 0, v
                 if (address.toLowerCase() !== _id.toLowerCase()) {
                     res.status(401).send({ error: 'Signature verification failed' });
                 }
-                accessToken = jsonwebtoken_1["default"].sign(_id, JWT_SECRET);
-                res.json({ token: accessToken });
+                //insert user session if successful
+                req.session.id = _id;
+                console.log("SESSION:", req.session);
                 return [2 /*return*/];
         }
     });
@@ -137,6 +143,10 @@ app.post('/users/auth', function (req, res) { return __awaiter(void 0, void 0, v
 app.get('/publisher', verifyToken, function (req, res) {
     // console.log(req.user);
     res.send("YOU ARE LOGGED IN");
+});
+app.get('/current-user', function (req, res) {
+    console.log(req.session.id);
+    res.send(req.session.id);
 });
 // ______________MIDDLEWARES________________
 function verifyToken(req, res, next) {
