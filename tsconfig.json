@@ -17,8 +17,15 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react"
+    "jsx": "react",
+    "typeRoots": [
+      "custom.request.d.ts",
+      "node_modules/@types"
+    ]
   },
+  "files": [
+    "custom.request.d.ts"
+  ],
   "include": [
     "src", "index.js", "index.ts", "index.ts", "index.js"
   ]

@@ -22,7 +22,7 @@ class TokenList extends Component {
                 header: token.name,
                 meta: (
                     `${token.traits[2].trait_type} ${token.traits[2].value}, 
-                    ${token.traits[3].trait_type} +  ${token.traits[3].value}`
+                    ${token.traits[3].trait_type} ${token.traits[3].value}`
                     ),
                 description: token.description,
                 href: token.permalink,

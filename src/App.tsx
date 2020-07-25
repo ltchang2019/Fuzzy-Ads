@@ -7,6 +7,7 @@ import './App.css';
 import Login from './components/Login';
 import Publisher from './components/Publisher';
 import TokenList from './components/TokenList';
+import EditAdForm from './components/EditAdForm'
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
         <Route path='/login' component={Login} />
         <Route path='/publisher' component={Publisher} />
         <Route path='/token-list' component={TokenList} />
+        <Route path='/edit-ad' component={EditAdForm} />
       </BrowserRouter>
       </Container>
   );

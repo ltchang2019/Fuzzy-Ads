@@ -4,12 +4,10 @@ import cookieParser from 'cookie-parser';
 import { Client, KeyInfo, ThreadID, JSONSchema } from '@textile/hub';
 import bodyParser from 'body-parser';
 import jwt from 'jsonwebtoken';
-import { AuthInfo } from './reqDefinitions';
 import { recoverPersonalSignature } from 'eth-sig-util';
 import { bufferToHex } from 'ethereumjs-util';
 
 const { API_KEY, API_SECRET, DB_ID, JWT_SECRET, COOKIE_KEY } = require('./config');
-require('dotenv').config();
 
 const app = express();
 
@@ -18,7 +16,6 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(
     cookieSession({
-        name: 'session',
         maxAge: 24 * 60 * 60 * 1000,
         keys: [COOKIE_KEY]
     })
@@ -82,8 +79,8 @@ app.post('/users/auth', async (req, res) => {
     }
 
     //insert user session if successful
-    req!.session!.id = _id;
-    console.log("SESSION:", req!.session!.id);
+    req.session!.user = _id;
+    console.log("SESSION:", req.session?.user);
     // const accessToken = jwt.sign(_id, JWT_SECRET);
     // res.json({ token: accessToken });
 });
@@ -94,8 +91,8 @@ app.get('/publisher', verifyToken, (req, res) => {
 });
 
 app.get('/current-user', (req, res) => {
-    console.log(req.session!.id);
-    res.send(req.session!.id);
+    console.log("ID: ", req.session?.user);
+    res.send(req.session?.user);
 });
 
 // ______________MIDDLEWARES________________

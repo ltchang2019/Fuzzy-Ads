@@ -40,7 +40,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 exports.__esModule = true;
 var express_1 = __importDefault(require("express"));
-var express_session_1 = __importDefault(require("express-session"));
+var cookie_session_1 = __importDefault(require("cookie-session"));
 var cookie_parser_1 = __importDefault(require("cookie-parser"));
 var hub_1 = require("@textile/hub");
 var body_parser_1 = __importDefault(require("body-parser"));
@@ -48,12 +48,14 @@ var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 var eth_sig_util_1 = require("eth-sig-util");
 var ethereumjs_util_1 = require("ethereumjs-util");
 var _a = require('./config'), API_KEY = _a.API_KEY, API_SECRET = _a.API_SECRET, DB_ID = _a.DB_ID, JWT_SECRET = _a.JWT_SECRET, COOKIE_KEY = _a.COOKIE_KEY;
-require('dotenv').config();
 var app = express_1["default"]();
 app.set('trust proxy', 1);
 app.use(body_parser_1["default"].json());
 app.use(cookie_parser_1["default"]());
-app.use(express_session_1["default"]({ secret: 'express-secret' }));
+app.use(cookie_session_1["default"]({
+    maxAge: 24 * 60 * 60 * 1000,
+    keys: [COOKIE_KEY]
+}));
 app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', ['GET', 'POST']);
@@ -113,16 +115,17 @@ app.get('/exists/:publicKey', function (req, res) { return __awaiter(void 0, voi
 }); });
 app.post('/users/auth', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var _a, _id, signature, client, user, msg, msgBufferHex, address;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
+    var _b;
+    return __generator(this, function (_c) {
+        switch (_c.label) {
             case 0:
                 _a = req.body, _id = _a._id, signature = _a.signature;
                 return [4 /*yield*/, getClient()];
             case 1:
-                client = _b.sent();
+                client = _c.sent();
                 return [4 /*yield*/, client.findByID(threadId, "Publishers", _id)];
             case 2:
-                user = _b.sent();
+                user = _c.sent();
                 msg = "I am signing my one-time nonce: " + user.instance.nonce;
                 msgBufferHex = ethereumjs_util_1.bufferToHex(Buffer.from(msg, 'utf8'));
                 address = eth_sig_util_1.recoverPersonalSignature({
@@ -134,8 +137,8 @@ app.post('/users/auth', function (req, res) { return __awaiter(void 0, void 0, v
                     res.status(401).send({ error: 'Signature verification failed' });
                 }
                 //insert user session if successful
-                req.session.id = _id;
-                console.log("SESSION:", req.session);
+                req.session.user = _id;
+                console.log("SESSION:", (_b = req.session) === null || _b === void 0 ? void 0 : _b.user);
                 return [2 /*return*/];
         }
     });
@@ -145,8 +148,9 @@ app.get('/publisher', verifyToken, function (req, res) {
     res.send("YOU ARE LOGGED IN");
 });
 app.get('/current-user', function (req, res) {
-    console.log(req.session.id);
-    res.send(req.session.id);
+    var _a, _b;
+    console.log("ID: ", (_a = req.session) === null || _a === void 0 ? void 0 : _a.user);
+    res.send((_b = req.session) === null || _b === void 0 ? void 0 : _b.user);
 });
 // ______________MIDDLEWARES________________
 function verifyToken(req, res, next) {
