@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from 'semantic-ui-react';
+import { Button, Card } from 'semantic-ui-react';
 import Web3 from 'web3';
 
 let web3: Web3 | undefined = undefined;
 class Publisher extends Component {
     state = {
-        auth: false
+        auth: false,
+        myListings: []
     }
 
     async componentDidMount() {
@@ -23,24 +24,50 @@ class Publisher extends Component {
         if(userCookie && user === userCookie) {
             this.setState({ auth: true })
         }
-        console.log(this.state.auth);
+
+        const listings = await fetch('https://rinkeby-api.opensea.io/api/v1/assets/?asset_contract_address=0x917272555bcf446d693649c30ff8d268315744bc&asset_contract_addresses=%5B%5D&format=json&limit=20&offset=0&order_direction=desc');
+        const jsonListings = (await listings.json()).assets;
+        const filteredListings = jsonListings.filter((token: any) => token.owner.address == user);
+        this.setState({ myListings: filteredListings });
+        console.log(this.state);
+    }
+
+    listMySlots() {
+        const { myListings } = this.state;
+        const items = myListings.map((token: any) => {
+            return {
+                raised: true,
+                image: token.image_url,
+                header: token.name,
+                meta: (
+                    `${token.traits[2].trait_type} ${token.traits[2].value}, 
+                    ${token.traits[3].trait_type} ${token.traits[3].value}`
+                    ),
+                description: token.description,
+                href: token.permalink
+            }
+        });
+        return <Card.Group items={items} />;
     }
 
     listings = () => {
         return (
-            <div>Listings</div>
+            <div>
+                {this.listMySlots()}
+            </div>
         );
     }
 
     authenticatedComponent = () => {
         return (
             <div>
-                {this.listings()}
-                <Link to='/new-slot'>
+                <Link to='/user/new-slot'>
                     <Button primary>
                         Create New Listing                    
                     </Button>
                 </Link>
+
+                {this.listings()}
             </div>
         );
     }

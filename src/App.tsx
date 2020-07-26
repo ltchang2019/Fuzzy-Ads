@@ -1,14 +1,14 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Container } from 'semantic-ui-react';
-import { BrowserRouter, Redirect, Router, Switch, Route } from 'react-router-dom';
-import logo from './logo.svg';
+import { BrowserRouter, Route } from 'react-router-dom';
 import './App.css';
 import Login from './components/Login';
 import Publisher from './components/Publisher';
 import TokenList from './components/TokenList';
 import EditAdForm from './components/EditAdForm';
 import NewSlot from './components/NewSlot';
+import Header from './components/Header'
 
 const App = () => {
   return (
@@ -18,11 +18,12 @@ const App = () => {
       </Helmet>
 
       <BrowserRouter>
+        <Header />
         <Route path='/login' component={Login} />
-        <Route path='/publisher' component={Publisher} />
-        <Route path='/token-list' component={TokenList} />
-        <Route path='/edit-ad' component={EditAdForm} />
-        <Route path='/new-slot' component={NewSlot} />
+        <Route path='/user/publisher' component={Publisher} />
+        <Route path='/user/token-list' component={TokenList} />
+        <Route path='/user/edit-ad' component={EditAdForm} />
+        <Route path='/user/new-slot' component={NewSlot} />
       </BrowserRouter>
       </Container>
   );
