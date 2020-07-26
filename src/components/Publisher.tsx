@@ -16,10 +16,9 @@ class Publisher extends Component {
             return;
         }
         
-        let userCookie = await fetch("http://localhost:5000/current-user");
-        console.log("Cookie:", userCookie);
+        let userCookie = document.cookie;
         const user = await web3.eth.getCoinbase();
-        if(userCookie) {
+        if(userCookie && user === userCookie) {
             this.setState({ message: "Hello Publisher" })
         }
     }

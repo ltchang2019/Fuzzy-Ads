@@ -1,6 +1,4 @@
 import express, { NextFunction } from 'express';
-import cookieSession from 'cookie-session';
-import cookieParser from 'cookie-parser';
 import { Client, KeyInfo, ThreadID, JSONSchema } from '@textile/hub';
 import bodyParser from 'body-parser';
 import jwt from 'jsonwebtoken';
@@ -13,13 +11,6 @@ const app = express();
 
 app.set('trust proxy', 1)
 app.use(bodyParser.json());
-app.use(cookieParser());
-app.use(
-    cookieSession({
-        maxAge: 24 * 60 * 60 * 1000,
-        keys: [COOKIE_KEY]
-    })
-);
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', ['GET', 'POST']);
@@ -78,21 +69,18 @@ app.post('/users/auth', async (req, res) => {
       res.status(401).send({ error: 'Signature verification failed' });
     }
 
-    //insert user session if successful
-    req.session!.user = _id;
-    console.log("SESSION:", req.session?.user);
+    //create and return jwt
     const accessToken = jwt.sign(_id, JWT_SECRET);
     res.json({ token: accessToken });
 });
 
 app.get('/publisher', verifyToken, (req, res) => {
-    // console.log(req.user);
+    console.log("Publisher!");
     res.send("YOU ARE LOGGED IN");
 });
 
 app.get('/current-user', (req, res) => {
-    console.log("ID: ", req.session?.user);
-    res.send(req.session?.user);
+    res.send(document.cookie);
 });
 
 // ______________MIDDLEWARES________________

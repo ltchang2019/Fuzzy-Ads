@@ -26,7 +26,6 @@ class Login extends Component {
       .then(this.handleSignMessage)
   }
 
-  //shouldn't be of type <any>!!
   handleSignMessage = async (userInfo: any) => {
     const { _id, nonce } = userInfo;
     const message = `I am signing my one-time nonce: ${nonce}`;
@@ -43,8 +42,9 @@ class Login extends Component {
       const result = await res.json(); 
       console.log(result);
       if(result && result.token) {
-        this.setState({ account: _id });
+        document.cookie = _id;
       }
+      console.log("Client: ", document.cookie)
     } catch(err) {
       console.log(err.message)
       throw new Error('Invalid signature.');

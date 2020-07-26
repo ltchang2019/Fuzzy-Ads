@@ -40,8 +40,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 exports.__esModule = true;
 var express_1 = __importDefault(require("express"));
-var cookie_session_1 = __importDefault(require("cookie-session"));
-var cookie_parser_1 = __importDefault(require("cookie-parser"));
 var hub_1 = require("@textile/hub");
 var body_parser_1 = __importDefault(require("body-parser"));
 var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
@@ -51,11 +49,6 @@ var _a = require('./config'), API_KEY = _a.API_KEY, API_SECRET = _a.API_SECRET, 
 var app = express_1["default"]();
 app.set('trust proxy', 1);
 app.use(body_parser_1["default"].json());
-app.use(cookie_parser_1["default"]());
-app.use(cookie_session_1["default"]({
-    maxAge: 24 * 60 * 60 * 1000,
-    keys: [COOKIE_KEY]
-}));
 app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', ['GET', 'POST']);
@@ -114,47 +107,39 @@ app.get('/exists/:publicKey', function (req, res) { return __awaiter(void 0, voi
     });
 }); });
 app.post('/users/auth', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, _id, signature, client, user, msg, msgBufferHex, address;
-    var _b;
-    return __generator(this, function (_c) {
-        switch (_c.label) {
+    var _a, _id, signature, client, user, msg, msgBufferHex, address, accessToken;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
             case 0:
                 _a = req.body, _id = _a._id, signature = _a.signature;
                 return [4 /*yield*/, getClient()];
             case 1:
-                client = _c.sent();
+                client = _b.sent();
                 return [4 /*yield*/, client.findByID(threadId, "Publishers", _id)];
             case 2:
-                user = _c.sent();
+                user = _b.sent();
                 msg = "I am signing my one-time nonce: " + user.instance.nonce;
                 msgBufferHex = ethereumjs_util_1.bufferToHex(Buffer.from(msg, 'utf8'));
                 address = eth_sig_util_1.recoverPersonalSignature({
                     data: msgBufferHex,
                     sig: signature
                 });
-                console.log("here");
                 //check sig and public key match
                 if (address.toLowerCase() !== _id.toLowerCase()) {
                     res.status(401).send({ error: 'Signature verification failed' });
                 }
-                //insert user session if successful
-                req.session.user = _id;
-                console.log("SESSION:", (_b = req.session) === null || _b === void 0 ? void 0 : _b.user);
-                // const accessToken = jwt.sign(_id, JWT_SECRET);
-                // res.json({ token: accessToken });
-                res.end(req.session.user);
+                accessToken = jsonwebtoken_1["default"].sign(_id, JWT_SECRET);
+                res.json({ token: accessToken });
                 return [2 /*return*/];
         }
     });
 }); });
 app.get('/publisher', verifyToken, function (req, res) {
-    // console.log(req.user);
+    console.log("Publisher!");
     res.send("YOU ARE LOGGED IN");
 });
 app.get('/current-user', function (req, res) {
-    var _a, _b;
-    console.log("ID: ", (_a = req.session) === null || _a === void 0 ? void 0 : _a.user);
-    res.send((_b = req.session) === null || _b === void 0 ? void 0 : _b.user);
+    res.send(document.cookie);
 });
 // ______________MIDDLEWARES________________
 function verifyToken(req, res, next) {
