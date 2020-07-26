@@ -81,8 +81,8 @@ app.post('/users/auth', async (req, res) => {
     //insert user session if successful
     req.session!.user = _id;
     console.log("SESSION:", req.session?.user);
-    // const accessToken = jwt.sign(_id, JWT_SECRET);
-    // res.json({ token: accessToken });
+    const accessToken = jwt.sign(_id, JWT_SECRET);
+    res.json({ token: accessToken });
 });
 
 app.get('/publisher', verifyToken, (req, res) => {

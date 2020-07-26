@@ -32,7 +32,6 @@ class Login extends Component {
     const message = `I am signing my one-time nonce: ${nonce}`;
     try {
       const signature = await web3!.eth.personal.sign(message, _id, '');
-      
       const res = await fetch(`http://localhost:5000/users/auth`, {
         body: JSON.stringify({ _id, signature }),
         headers: {
@@ -47,6 +46,7 @@ class Login extends Component {
         this.setState({ account: _id });
       }
     } catch(err) {
+      console.log(err.message)
       throw new Error('Invalid signature.');
     }
   }

@@ -132,6 +132,7 @@ app.post('/users/auth', function (req, res) { return __awaiter(void 0, void 0, v
                     data: msgBufferHex,
                     sig: signature
                 });
+                console.log("here");
                 //check sig and public key match
                 if (address.toLowerCase() !== _id.toLowerCase()) {
                     res.status(401).send({ error: 'Signature verification failed' });
@@ -139,6 +140,9 @@ app.post('/users/auth', function (req, res) { return __awaiter(void 0, void 0, v
                 //insert user session if successful
                 req.session.user = _id;
                 console.log("SESSION:", (_b = req.session) === null || _b === void 0 ? void 0 : _b.user);
+                // const accessToken = jwt.sign(_id, JWT_SECRET);
+                // res.json({ token: accessToken });
+                res.end(req.session.user);
                 return [2 /*return*/];
         }
     });
