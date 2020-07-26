@@ -7,7 +7,8 @@ import './App.css';
 import Login from './components/Login';
 import Publisher from './components/Publisher';
 import TokenList from './components/TokenList';
-import EditAdForm from './components/EditAdForm'
+import EditAdForm from './components/EditAdForm';
+import NewSlot from './components/NewSlot';
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
         <Route path='/publisher' component={Publisher} />
         <Route path='/token-list' component={TokenList} />
         <Route path='/edit-ad' component={EditAdForm} />
+        <Route path='/new-slot' component={NewSlot} />
       </BrowserRouter>
       </Container>
   );

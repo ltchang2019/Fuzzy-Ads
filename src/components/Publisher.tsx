@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { Button } from 'semantic-ui-react';
 import Web3 from 'web3';
 
 let web3: Web3 | undefined = undefined;
 class Publisher extends Component {
     state = {
-        message: "Please sign in."
+        auth: false
     }
 
     async componentDidMount() {
@@ -19,12 +21,36 @@ class Publisher extends Component {
         let userCookie = document.cookie;
         const user = await web3.eth.getCoinbase();
         if(userCookie && user === userCookie) {
-            this.setState({ message: "Hello Publisher" })
+            this.setState({ auth: true })
         }
+        console.log(this.state.auth);
+    }
+
+    listings = () => {
+        return (
+            <div>Listings</div>
+        );
+    }
+
+    authenticatedComponent = () => {
+        return (
+            <div>
+                {this.listings()}
+                <Link to='/new-slot'>
+                    <Button primary>
+                        Create New Listing                    
+                    </Button>
+                </Link>
+            </div>
+        );
     }
 
     render() {
-        return <div>{this.state.message}</div>;
+        return (
+            <div>
+                {this.state.auth ? this.authenticatedComponent() : <div>Please Log In</div>}
+            </div>
+        );
     }
 }
 
