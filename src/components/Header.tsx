@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Menu } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-
+import LoginButton from './LoginButton';
 
 class Header extends Component {
     render() {
@@ -16,9 +16,9 @@ class Header extends Component {
                 </Menu.Header>
     
                 <Menu.Item
-                    name='listings'
+                    name='list-form'
                 >
-                    <Link to="/">
+                    <Link to="/user/publisher">
                         <a className="item">
                             <h2>My Listings</h2>
                         </a>   
@@ -28,10 +28,19 @@ class Header extends Component {
                 <Menu.Item
                     name='purchase'
                 >
-                    <Link to="/">
+                    <Link to="/user/token-list">
                         <a className="item">
                             <h2>Purchase Slots</h2>
                         </a>   
+                    </Link>
+                </Menu.Item>
+
+                <Menu.Item
+                    name='login'
+                    position='right'
+                >
+                    <Link to="/">
+                        <LoginButton /> 
                     </Link>
                 </Menu.Item>
             </Menu>
