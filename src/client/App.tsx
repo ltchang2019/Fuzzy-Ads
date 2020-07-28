@@ -9,6 +9,7 @@ import EditAdForm from './components/EditAdForm';
 import NewSlot from './components/NewSlot';
 import Header from './components/Header'
 import PurchasedSlots from './components/PurchasedSlots';
+import Home from './components/Home';
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
 
       <BrowserRouter>
         <Header />
+        <Route exact path='/' component={Home} />
         <Route path='/user/publisher' component={Publisher} />
         <Route path='/user/token-list' component={TokenList} />
         <Route path='/user/edit-ad' component={EditAdForm} />

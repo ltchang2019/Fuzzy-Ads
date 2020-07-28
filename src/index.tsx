@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import App from './client/App';
 import * as serviceWorker from './serviceWorker';
 import Web3 from 'web3';
 import Web3Provider from 'web3-react'

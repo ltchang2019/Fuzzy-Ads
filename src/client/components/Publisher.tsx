@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Card } from 'semantic-ui-react';
 import Web3 from 'web3';
-import { getSessionCookie, setSessionCookie, removeSessionCookie } from '../sessions';
-
+import { getSessionCookie, setSessionCookie, removeSessionCookie } from '../../sessions';
 
 let web3: Web3 | undefined = undefined;
 class Publisher extends Component {

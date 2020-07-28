@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button } from 'semantic-ui-react';
 import Web3 from 'web3';
 import { useHistory } from "react-router-dom";
-import { getSessionCookie, setSessionCookie, removeSessionCookie } from '../sessions';
+import { getSessionCookie, setSessionCookie, removeSessionCookie } from '../../sessions';
 
 let web3: Web3 | undefined = undefined;
 
@@ -38,6 +38,7 @@ function LoginButton() {
             removeSessionCookie();
             setLogin(false);
             history.push('/');
+            window.location.reload();
         }
     }
   
@@ -60,6 +61,7 @@ function LoginButton() {
                 setSessionCookie({ _id });
                 setLogin(true);
                 history.push('/');
+                window.location.reload();
                 console.log("Cookie Set: ", getSessionCookie()._id);
                 console.log("State: ", account);
             }

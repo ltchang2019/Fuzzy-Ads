@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import LoginButton from './LoginButton';
 
 class Header extends Component {
-    state = { active: 'purchase' }
+    state = { active: 'home' }
 
     render() {
         const { active } = this.state;

@@ -45,11 +45,10 @@ var body_parser_1 = __importDefault(require("body-parser"));
 var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 var eth_sig_util_1 = require("eth-sig-util");
 var ethereumjs_util_1 = require("ethereumjs-util");
-var _a = require('./config'), API_KEY = _a.API_KEY, API_SECRET = _a.API_SECRET, DB_ID = _a.DB_ID, JWT_SECRET = _a.JWT_SECRET, COOKIE_KEY = _a.COOKIE_KEY;
+var _a = require('../../config'), API_KEY = _a.API_KEY, API_SECRET = _a.API_SECRET, DB_ID = _a.DB_ID, JWT_SECRET = _a.JWT_SECRET;
 var app = express_1["default"]();
 app.set('trust proxy', 1);
-app.use(body_parser_1["default"].json());
-app.use(function (req, res, next) {
+app.use(body_parser_1["default"].json(), function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', ['GET', 'POST']);
     res.header('Access-Control-Allow-Headers', '*');

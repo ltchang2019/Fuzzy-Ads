@@ -1,11 +1,11 @@
-import express, { NextFunction } from 'express';
-import { Client, KeyInfo, ThreadID, JSONSchema } from '@textile/hub';
+import express from 'express';
+import { Client, KeyInfo, ThreadID } from '@textile/hub';
 import bodyParser from 'body-parser';
 import jwt from 'jsonwebtoken';
 import { recoverPersonalSignature } from 'eth-sig-util';
 import { bufferToHex } from 'ethereumjs-util';
 
-const { API_KEY, API_SECRET, DB_ID, JWT_SECRET, COOKIE_KEY } = require('./src/config');
+const { API_KEY, API_SECRET, DB_ID, JWT_SECRET } = require('../../config');
 
 const app = express();
 
