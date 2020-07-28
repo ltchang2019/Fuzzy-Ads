@@ -1,21 +1,8 @@
 import React, { Component } from 'react';
 import { Form, Input, Button } from 'semantic-ui-react';
-import Web3 from 'web3';
+import { useWeb3Context } from 'web3-react';
 const IPFS = require('ipfs');
-//when user submit's form, create ipfs/ipns page and upload data to that address
-//call setMetadata function on contract to link ipfs url to tokenized space (this means that if an advertiser chooses to make a bunch of changes, its gonna be slow and cost gas)
-//OR
-//when token is minted, ipns page is automatically generated and linked to token
-//when user enters info into UI form, data held @ ipns address is UPDATED (this means that we have to have keys for who can edit data on ipns page?)
 
-//ipns address set up for user when token is minted
-//submitting form will alter where ipns address points to
-
-//ipns address is generated AFTER the user submits form and creates ipfs address for creative data
-
-//ipfs name publish ties web page ipns address to peer id
-//generate key-pair id pairing
-//ipfs name publish -key=mykey <ipfs-hash> publishes ipfs content to https://ipfs.io/ipns/mykey
 let node: any;
 class EditAdForm extends Component {
     state = {

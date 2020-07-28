@@ -27,6 +27,6 @@
     "custom.request.d.ts"
   ],
   "include": [
-    "src", "index.js", "index.ts", "index.ts", "index.js"
+    "src", "index.js", "index.ts", "index.ts", "index.js", "config.js"
   ]
 }

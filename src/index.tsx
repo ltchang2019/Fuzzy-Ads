@@ -3,11 +3,27 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import Web3 from 'web3';
+import Web3Provider from 'web3-react'
+
+import { Connectors } from 'web3-react'
+const { InjectedConnector, NetworkOnlyConnector } = Connectors
+ 
+const MetaMask = new InjectedConnector({ supportedNetworks: [1, 4] })
+ 
+const Infura = new NetworkOnlyConnector({
+  providerURL: 'https://rinkeby.infura.io/v3/60fecba8c2e443f9b1a6493537a3745e'
+})
+ 
+const connectors = { MetaMask, Infura }
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Web3Provider
+      connectors={connectors}
+      libraryName={'web3.js'}
+    >
     <App />
-  </React.StrictMode>,
+  </Web3Provider>,
   document.getElementById('root')
 );
 

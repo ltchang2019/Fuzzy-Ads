@@ -5,18 +5,20 @@ import jwt from 'jsonwebtoken';
 import { recoverPersonalSignature } from 'eth-sig-util';
 import { bufferToHex } from 'ethereumjs-util';
 
-const { API_KEY, API_SECRET, DB_ID, JWT_SECRET, COOKIE_KEY } = require('./config');
+const { API_KEY, API_SECRET, DB_ID, JWT_SECRET, COOKIE_KEY } = require('./src/config');
 
 const app = express();
 
 app.set('trust proxy', 1)
-app.use(bodyParser.json());
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', ['GET', 'POST']);
-    res.header('Access-Control-Allow-Headers', '*');
-    next();
-});
+app.use(
+    bodyParser.json(),
+    (req, res, next) => {
+        res.header('Access-Control-Allow-Origin', '*');
+        res.header('Access-Control-Allow-Methods', ['GET', 'POST']);
+        res.header('Access-Control-Allow-Headers', '*');
+        next();
+    }
+);
 
 const threadId = ThreadID.fromString(DB_ID);
 

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Card, Button, Icon } from 'semantic-ui-react';
-//loop through contract length and display all nft-cards
 
 class TokenList extends Component {
     state = {
+        auth: false,
         listings: []
     }
 
@@ -39,7 +39,7 @@ class TokenList extends Component {
                 )
             }
         });
-        return <Card.Group items={items} centered />;
+        return <Card.Group items={items} itemsPerRow={4}/>;
     }
 
     render() {
