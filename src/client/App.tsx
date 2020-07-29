@@ -25,15 +25,17 @@ const App = ({injectedConnector}: any) => {
           <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" />
       </Helmet>
 
-      <BrowserRouter>
-        <Header />
-        <Route exact path='/' component={Home} />
-        <Route path='/user/publisher' component={Publisher} />
-        <Route path='/user/token-list' component={TokenList} />
-        <Route path='/user/edit-ad' component={EditAdForm} />
-        <Route path='/user/new-slot' component={NewSlot} />
-        <Route path='/user/purchased-slots' component={PurchasedSlots} />
-      </BrowserRouter>
+      {active && (
+        <BrowserRouter>
+          <Header />
+          <Route exact path='/' component={Home} />
+          <Route path='/user/publisher' component={Publisher} />
+          <Route path='/user/token-list' component={TokenList} />
+          <Route path='/user/edit-ad' component={EditAdForm} />
+          <Route path='/user/new-slot' component={NewSlot} />
+          <Route path='/user/purchased-slots' component={PurchasedSlots} />
+        </BrowserRouter>
+      )}
       </Container>
   );
 }
