@@ -39,9 +39,8 @@ function Header() {
 
                 <Dropdown.Menu>
                     <Dropdown.Item href="/user/token-list">Advertise on Fuzzy</Dropdown.Item>
-                    <Dropdown.Item href="/user/timeslots">My Timeslots</Dropdown.Item>
-                    <Dropdown.Item href="/user/current-ad">Current Performance</Dropdown.Item>
-                    <Dropdown.Item href="/user/current-ad">Past Performance</Dropdown.Item>
+                    <Dropdown.Item href="/user/my-slots">My Timeslots</Dropdown.Item>
+                    <Dropdown.Item href="/user/ad-performance">Ad Performance</Dropdown.Item>
                 </Dropdown.Menu>
                 </Dropdown>
             </Menu.Item>
@@ -53,8 +52,8 @@ function Header() {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">Earnings History</Dropdown.Item>
-                    <Dropdown.Item href="/user/ad-creative">How to Run Ads</Dropdown.Item>
+                    <Dropdown.Item href="/user/publisher-history">Earnings History</Dropdown.Item>
+                    <Dropdown.Item href="/user/how-to-run-ads">How to Run Ads</Dropdown.Item>
                 </Dropdown.Menu>
                 </Dropdown>
             </Menu.Item>
