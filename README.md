@@ -1,18 +1,23 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# fuzzy-ads-app
 
 ## Setting up Textile Hub
 
 Follow the instructions [here](https://docs.textile.io/hub/accounts/#account-setup)
 
 ## Compiling in Dev Mode
+
 To run `npm run dev`, create a config.js file in the root directory with this structure:<br />
 
-`API_KEY="<your-textile-api-key>";` <br />
-`API_SECRET="<your-textile-api-secret>";`<br />
-`DB_ID="<your-textile-db-id>";`<br />
-`JWT_SECRET="<made-up-jwt-secret>";`<br />
-`INFURA_LINK="<your-infura-api-link>";`<br />
-`module.exports = { API_KEY, API_SECRET, DB_ID, JWT_SECRET, INFURA_LINK };`
+```js
+API_KEY="<your-textile-api-key>";>
+API_SECRET="<your-textile-api-secret>";
+DB_ID="<your-textile-db-id>";
+JWT_SECRET="<made-up-jwt-secret>";
+INFURA_LINK="<your-infura-api-link>";
+module.exports = { API_KEY, API_SECRET, DB_ID, JWT_SECRET, INFURA_LINK };
+```
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 In the project directory, you can run:

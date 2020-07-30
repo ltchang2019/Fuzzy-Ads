@@ -1,5 +1,7 @@
 # project
 config.js
+.textile
+.textileseed
 
 # dependencies
 /node_modules
