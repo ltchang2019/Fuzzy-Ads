@@ -1,5 +1,9 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Setting up Textile Hub
+
+Follow the instructions [here](https://docs.textile.io/hub/accounts/#account-setup)
+
 ## Compiling in Dev Mode
 To run `npm run dev`, create a config.js file in the root directory with this structure:<br />
 
