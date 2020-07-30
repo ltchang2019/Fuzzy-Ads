@@ -1,0 +1,10 @@
+.aligned { 
+    display: flex; 
+    align-items: center; 
+} 
+   
+span { 
+    padding: 10px; 
+} 
+
+.dropdown-toggle:after { content: none }
