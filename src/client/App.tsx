@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';import { Helmet } from 'react-helmet';
 import { Container } from 'semantic-ui-react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import './App.css';
-import Publisher from './components/Publisher';
+import Publisher from './components/PurchasedSlots';
 import TokenList from './components/TokenList';
 import EditAdForm from './components/EditAdForm';
 import NewSlot from './components/NewSlot';
@@ -31,12 +31,9 @@ const App = ({injectedConnector}: any) => {
       <BrowserRouter>
         <Header />
         <Route exact path='/' component={Home} />
-        <Route exact path='/user/advertiser' component={() => <AdCreativeForm />} />
-        <Route path='/user/publisher' component={Publisher} />
         <Route path='/user/token-list' component={TokenList} />
-        <Route path='/user/ad-creative' component={() => <AdCreativeForm />} />
-        <Route path='/user/new-slot' component={NewSlot} />
-        <Route path='/user/purchased-slots' component={PurchasedSlots} />
+        <Route exact path='/user/ad-creative-form' component={() => <AdCreativeForm />} />
+        <Route exact path='/user/my-slots' component={PurchasedSlots} />
       </BrowserRouter>
     )}
     
