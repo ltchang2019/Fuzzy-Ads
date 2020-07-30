@@ -2,10 +2,7 @@ import React, { useEffect } from 'react';import { Helmet } from 'react-helmet';
 import { Container } from 'semantic-ui-react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import './App.css';
-import Publisher from './components/PurchasedSlots';
 import TokenList from './components/TokenList';
-import EditAdForm from './components/EditAdForm';
-import NewSlot from './components/NewSlot';
 import Header from './components/Header'
 import PurchasedSlots from './components/PurchasedSlots';
 import Home from './components/Home';
