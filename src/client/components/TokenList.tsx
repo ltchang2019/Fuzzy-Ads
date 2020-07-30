@@ -8,7 +8,7 @@ class TokenList extends Component {
     }
 
     async componentDidMount() {
-        const listings = await fetch('https://rinkeby-api.opensea.io/api/v1/assets/?asset_contract_address=0x917272555bcf446d693649c30ff8d268315744bc&asset_contract_addresses=%5B%5D&format=json&limit=20&offset=0&order_direction=desc');
+        const listings = await fetch('https://rinkeby-api.opensea.io/api/v1/assets/?asset_contract_address=0x8d1d1467fe47f5ee1d923033117de927d91d1124&asset_contract_addresses=%5B%5D&order_direction=desc&offset=0&limit=20');
         const jsonListings = await listings.json();
         this.setState({ listings: jsonListings.assets });
     }
@@ -21,9 +21,12 @@ class TokenList extends Component {
                 image: token.image_url,
                 header: token.name,
                 meta: (
-                    `${token.traits[2].trait_type} ${token.traits[2].value}, 
-                    ${token.traits[3].trait_type} ${token.traits[3].value}`
-                    ),
+                    <text>
+                        {`Starts: ${new Date(token.traits[2].value * 1000).toLocaleString()}`}
+                        <br />
+                        {`Ends: ${new Date(token.traits[3].value * 1000).toLocaleString()}`}
+                    </text>
+                ),
                 description: token.description,
                 href: token.permalink,
                 extra: (

@@ -30,7 +30,7 @@ class Publisher extends Component {
         const jsonListings = (await listings.json()).assets;
 
         //REPLACE WITH ACTUAL USER
-        const filteredListings = jsonListings.filter((token: any) => token.owner.address === "0xeb65b09e73d74b6ef526cf14359e8a2589ea0fbb");
+        const filteredListings = jsonListings.filter((token: any) => token.owner.address === user);
         this.setState({ myListings: filteredListings });
         console.log(this.state);
     }
