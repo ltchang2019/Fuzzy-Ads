@@ -31,9 +31,9 @@ class TokenList extends Component {
                 href: token.permalink,
                 extra: (
                     <Button 
-                        className='ui teal button' 
+                        className='ui orange button' 
                         href={token.permalink}                         
-                        color='teal'
+                        color='orange'
                         fluid
                     >
                         <Icon name='shopping cart' />

@@ -16,7 +16,7 @@ function Header() {
                 <img src={MetamaskLogo} style={{width: 24, height: 24}}></img>
                 <span>{account ? ` ${accountString}` : " Login To Metamask"}</span>
                 <svg height="24" width="24">
-                <circle cx="12" cy="12" r="8" stroke="black" stroke-width="1" fill={account ? "#00fa00" : "#fa0000"} />
+                <circle cx="12" cy="12" r="8" stroke="black" strokeWidth="1" fill={account ? "#00fa00" : "#fa0000"} />
                 </svg>
             </div>
         );
@@ -24,45 +24,13 @@ function Header() {
 
     return (
         <Menu style={{marginTop: '10px'}} color='orange' secondary>
-            <Menu.Item
-                as={ Link }
-                to='/'
-            >
+            <Menu.Item as={ Link } to='/'>
                 <img src="https://ipfs.io/ipfs/QmVprAMVkhWoiMsTpTbY7amoM96w1syCXYXjFgyvwsJLoa" style={{width: 100, height: 100}}></img>
             </Menu.Item>
 
-            <Menu.Item>
-            <Dropdown>
-                <Dropdown.Toggle variant='info' size='lg'>
-                    Advertiser
-                </Dropdown.Toggle>
-
-                <Dropdown.Menu>
-                    <Dropdown.Item href="/user/token-list">Advertise on Fuzzy</Dropdown.Item>
-                    <Dropdown.Item href="/user/my-slots">My Timeslots</Dropdown.Item>
-                    <Dropdown.Item href="/user/ad-performance">Ad Performance</Dropdown.Item>
-                </Dropdown.Menu>
-                </Dropdown>
-            </Menu.Item>
-
-            <Menu.Item>
-            <Dropdown>
-                <Dropdown.Toggle variant='info' size='lg'>
-                    Publisher
-                </Dropdown.Toggle>
-
-                <Dropdown.Menu>
-                    <Dropdown.Item href="/user/publisher-history">Earnings History</Dropdown.Item>
-                    <Dropdown.Item href="/user/how-to-run-ads">How to Run Ads</Dropdown.Item>
-                </Dropdown.Menu>
-                </Dropdown>
-            </Menu.Item>
-
-            <Menu.Item
-                    as={ Link }
-                    position='right'
-                >
-                    {metamaskComponent()}
+            
+            <Menu.Item position='right'>
+                {metamaskComponent()}
             </Menu.Item>
         </Menu>
     );
