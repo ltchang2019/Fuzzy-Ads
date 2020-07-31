@@ -1,65 +1,39 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Menu } from 'semantic-ui-react';
+import { Dropdown, DropdownButton } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import LoginButton from './LoginButton';
+import { useWeb3React } from "@web3-react/core";
+import MetamaskLogo from '../assets/images/metamask-logo.png';
+import '../assets/style/style.css';
 
-class Header extends Component {
-    state = { active: 'home' }
+function Header() {
+    const { account } = useWeb3React();
 
-    render() {
-        const { active } = this.state;
+    function metamaskComponent() {
+        const accountString = `${account?.toLowerCase().slice(0,8)}...${account?.toLowerCase().slice(35, 41)}`
         return (
-            <Menu style={{marginTop: '10px'}} color='orange' secondary>
-                <Menu.Item
-                    as={ Link }
-                    to='/'
-                    onClick={() => this.setState({ active: 'home'})}
-                >
-                    <img src="https://ipfs.io/ipfs/QmVprAMVkhWoiMsTpTbY7amoM96w1syCXYXjFgyvwsJLoa" style={{width: 100, height: 100}}></img>
-                </Menu.Item>
-
-                <Menu.Item
-                    as={ Link }
-                    to='/user/token-list'
-                    name='purchase'
-                    active={active === 'purchase'}
-                    onClick={() => this.setState({ active: 'purchase'})}
-                >
-                    <h2>Purchase Slots</h2>
-                </Menu.Item>
-    
-                <Menu.Item
-                    as={ Link }
-                    to='/user/publisher'
-                    name='list-form'
-                    active={active === 'list-form'}
-                    onClick={() => this.setState({ active: 'list-form'})}
-                >
-                    <h2>My Listings</h2>
-                </Menu.Item>
-
-                <Menu.Item
-                    as={ Link }
-                    to='/user/purchased-slots'
-                    name='purchased-slots'
-                    active={active === 'purchased-slots'}
-                    onClick={() => this.setState({ active: 'purchased-slots'})}
-                >
-                    <h2>My Slots</h2>   
-                </Menu.Item>
-
-                <Menu.Item
-                    as={ Link }
-                    to='/'
-                    name='login'
-                    position='right'
-                    onClick={() => this.setState({ active: 'home'})}
-                >
-                    <LoginButton /> 
-                </Menu.Item>
-            </Menu>
+            <div className="aligned"> 
+                <img src={MetamaskLogo} style={{width: 24, height: 24}}></img>
+                <span>{account ? ` ${accountString}` : " Login To Metamask"}</span>
+                <svg height="24" width="24">
+                <circle cx="12" cy="12" r="8" stroke="black" strokeWidth="1" fill={account ? "#00fa00" : "#fa0000"} />
+                </svg>
+            </div>
         );
     }
+
+    return (
+        <Menu style={{marginTop: '10px'}} color='orange' secondary>
+            <Menu.Item as={ Link } to='/'>
+                <img src="https://ipfs.io/ipfs/QmVprAMVkhWoiMsTpTbY7amoM96w1syCXYXjFgyvwsJLoa" style={{width: 100, height: 100}}></img>
+            </Menu.Item>
+
+            
+            <Menu.Item position='right'>
+                {metamaskComponent()}
+            </Menu.Item>
+        </Menu>
+    );
 }
 
 export default Header;

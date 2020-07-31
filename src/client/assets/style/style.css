@@ -1,0 +1,82 @@
+.aligned { 
+    display: flex; 
+    align-items: center; 
+} 
+   
+span { 
+    padding: 10px; 
+} 
+
+.dropdown-toggle:after { content: none }
+
+.fuzzy-body {
+	font-family: 'Montserrat Alternates', sans-serif;
+}
+.fuzzy-header {
+	padding: 1em;
+	display: flex;
+	justify-content: space-between;
+}
+.fuzzy-logo {
+	width: 120px;
+}
+.connect-web3 {
+	display: flex;
+	color: #666;
+}
+.icon-metamask {
+	width: 35px;
+	padding: .5em;
+}
+.fuzzy-content {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+	flex-direction: column;
+	height: 100vh;
+}
+.fuzzy-nav {
+	width: 350px;
+	padding: 2em 0;
+}
+.fuzzy-data {
+	padding: 10vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+	text-align: center;
+}
+.fuzzy-data h1 {
+	font-family: blockhead-dark-side, sans-serif;
+	font-weight: normal;
+}
+.dropshadow {
+	border: 2px solid black;
+	box-shadow: 8px 8px #000;
+}
+.button-list {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	line-height: 2.7;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: stretch;
+}
+.button {
+	background: orange;
+	padding: .1em 3em;
+	margin: .2em;
+	border-radius: 2em;
+	text-decoration: none;
+	color: white;
+}
+.button:active, .button:hover {
+	background-color: darkorange;
+}
+.button-list .button {
+	display: block;
+}

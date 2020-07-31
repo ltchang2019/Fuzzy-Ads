@@ -6,7 +6,7 @@ import { Contract } from "@ethersproject/contracts";
 const IPFS = require('ipfs');
 
 const { abi } = require('../ethereum/build/Ad.json');
-const contractAddress = "0x917272555bcf446d693649c30ff8d268315744bc";
+const contractAddress = "0x8d1d1467fe47f5ee1d923033117de927d91d1124";
 
 let node: any;
 function AdCreativeForm() {   
@@ -32,9 +32,9 @@ function AdCreativeForm() {
 
         const hash = file.path;
         console.log(`Link: https://gateway.ipfs.io/ipfs/${hash}`);
-        console.log(contract.address);
         
-        await contract.setMetadata(1, hash);
+        contract.getMetadata(11).then(console.log);
+
         console.log("FINISHED");
     }
 
