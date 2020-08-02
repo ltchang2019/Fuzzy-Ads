@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Card, Button, Icon } from 'semantic-ui-react';
 
-class TokenList extends Component {
+class BuyAds extends Component {
     state = {
         auth: false,
         listings: []
@@ -18,7 +18,6 @@ class TokenList extends Component {
         const items = listings.map((token: any) => {
             return {
                 raised: true,
-                image: token.image_url,
                 header: token.name,
                 meta: (
                     <text>
@@ -42,16 +41,16 @@ class TokenList extends Component {
                 )
             }
         });
-        return <Card.Group items={items} itemsPerRow={4}/>;
+        return <Card.Group items={items} itemsPerRow={2} />;
     }
 
     render() {
         return (
-            <div>
+            <div style={{maxWidth: '75%', maxHeight: '100%', overflowY: 'scroll', padding: '10px'}}>
                 {this.listSlots()}
             </div>
         );
     }
 }
 
-export default TokenList;
+export default BuyAds;

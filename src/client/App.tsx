@@ -3,11 +3,12 @@ import { Helmet } from 'react-helmet';
 import { Container } from 'semantic-ui-react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import './assets/style/style.css';
-import TokenList from './components/TokenList';
+import BuyAds from './components/BuyAds';
 import Header from './components/Header'
 import MySlots from './components/MySlots';
-import AdvertiserHome from './components/AdvertiserHome';
+import SideBar from './components/SideBar';
 import AdCreativeForm from './components/AdCreativeForm';
+import PastAds from './components/PastAds';
 import { useWeb3React } from "@web3-react/core";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -28,20 +29,18 @@ const App = ({injectedConnector}: any) => {
       </Helmet>
 
     {active && (
-      <BrowserRouter>
+      <BrowserRouter >
         <Header />
 
-        <div className="fuzzy-data dropshadow">
-          <Route exact path='/advertiser' component={() => <AdvertiserHome />} />
-          <Route exact path='/advertiser/token-list' component={TokenList} />
+        <div className="fuzzy-data dropshadow" style={{height: '70vh', minWidth: '50%'}}>
+          <SideBar />
+          <Route exact path='/advertiser/token-list' component={BuyAds} />
           <Route exact path='/advertiser/ad-creative-form' component={() => <AdCreativeForm />} />
-          <Route exact path='/advertiser/my-slots' component={() => <MySlots />} />
+          <Route exact path='/advertiser/past-ads' component={() => <PastAds />} />
         </div>
       </BrowserRouter>
     )}
-    
     </Container>
-
   );
 }
 

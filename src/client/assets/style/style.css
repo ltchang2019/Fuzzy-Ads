@@ -7,8 +7,6 @@ span {
     padding: 10px; 
 } 
 
-.dropdown-toggle:after { content: none }
-
 .fuzzy-body {
 	font-family: 'Montserrat Alternates', sans-serif;
 }
@@ -41,23 +39,27 @@ span {
 	padding: 2em 0;
 }
 .fuzzy-data {
-	padding: 10vh;
+	padding: 1em 2em;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	align-content: center;
 	text-align: center;
+	overflow: 'hidden';
 }
 .fuzzy-data h1 {
 	font-family: blockhead-dark-side, sans-serif;
 	font-weight: normal;
+	margin-bottom: 0;
+	padding-bottom: 0;
+	line-height: .7;
 }
 .dropshadow {
 	border: 2px solid black;
 	box-shadow: 8px 8px #000;
 }
 .button-list {
-	margin: 0;
+	margin: 2.5em 0 0 0;
 	padding: 0;
 	list-style-type: none;
 	line-height: 2.7;
@@ -67,16 +69,72 @@ span {
 	align-items: stretch;
 }
 .button {
-	background: orange;
 	padding: .1em 3em;
 	margin: .2em;
 	border-radius: 2em;
 	text-decoration: none;
 	color: white;
 }
+.button:link, .button:visited {
+	color: white;
+	background-color: orange;
+}
 .button:active, .button:hover {
 	background-color: darkorange;
 }
 .button-list .button {
 	display: block;
+}
+.button.current {
+	background-color: darkorange;
+}
+.button.small {
+	font-size: 1em;
+}
+.flex-item {
+	margin: 1em;
+}
+.terminal {
+	max-height: 80%;
+	padding: 2em;
+	overflow: scroll;
+	text-align: left;
+}
+.terminal h2 {
+	text-transform: uppercase;
+	margin-bottom: 0;
+	font-size: 1em;
+	font-weight: normal;
+	text-align: center;
+}
+.ctas {
+	text-align: center;
+}
+.dark {
+	color: white;
+	background: black;
+}
+.dark a:link, .dark a:visited {
+	color: darkorange;
+}
+.dark a:hover, .dark a:active {
+	color: orange;
+}
+.dark a.button {
+	background: black;
+	border: 1px solid white;
+	padding: .5em 2em;
+}
+.dark a.button:link, .dark a.button:visited {
+	color: white;
+}
+.dark a.button:hover, .dark a.button:active {
+	color: white
+}
+.data-table {
+	padding: 2em;
+	font-size: 80%;
+}
+.data-table td {
+	padding: .5em;
 }
