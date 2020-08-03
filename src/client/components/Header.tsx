@@ -28,7 +28,7 @@ function Header() {
 
     return (
         <Menu style={{marginTop: '10px'}} color='orange' secondary>
-            <Menu.Item as={ Link } to='/'>
+            <Menu.Item href='/'>
                 <img src="https://ipfs.io/ipfs/QmVprAMVkhWoiMsTpTbY7amoM96w1syCXYXjFgyvwsJLoa" style={{width: 100, height: 100}}></img>
             </Menu.Item>
 

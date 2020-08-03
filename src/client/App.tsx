@@ -9,8 +9,9 @@ import SideBar from './components/SideBar';
 import BuyAds from './components/Advertiser/BuyAds';
 import PastAds from './components/Advertiser/PastAds';
 import AdCreativeForm from './components/Advertiser/AdCreativeForm';
-import MySlots from './components/Advertiser/MySlots';
 import HowToAdvertiser from './components/Advertiser/HowToAdvertiser';
+import CurrentAd from './components/Advertiser/CurrentAd';
+import MySlots from './components/Advertiser/MySlots';
 
 import PaymentHistory from './components/Publisher/PaymentHistory';
 import HowToPublisher from './components/Publisher/HowToPublisher';
@@ -43,11 +44,12 @@ const App = ({injectedConnector}: any) => {
           <SideBar type={path}/>
 
           <Route exact path='/advertiser/token-list' component={() => <BuyAds />} />
-          <Route exact path='/advertiser/ad-creative-form' component={() => <AdCreativeForm />} />
+          <Route exact path='/advertiser/current-ad' component={() => <CurrentAd />} />
           <Route exact path='/advertiser/past-ads' component={() => <PastAds />} />
           <Route exact path='/advertiser/how-to' component={() => <HowToAdvertiser />} />
+          <Route exact path='/advertiser/ad-creative-form' component={() => <AdCreativeForm />} />
 
-          <Route exact path='/advertiser/payment-history' component={() => <PaymentHistory />} />
+          <Route exact path='/publisher/payment-history' component={() => <PaymentHistory />} />
           <Route exact path='/publisher/how-to' component={() => <HowToPublisher />} />
         </div>
       </BrowserRouter>

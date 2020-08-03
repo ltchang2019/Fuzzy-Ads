@@ -28,7 +28,7 @@ function AdvertiserSideBar({ type }: any | undefined) {
                     </li>
     
                     <li>
-                        <Link className="button" to="/advertiser/how-it-works">
+                        <Link className="button" to="/advertiser/how-to">
                             How It Works
                         </Link>
                     </li>
