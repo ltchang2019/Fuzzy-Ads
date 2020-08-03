@@ -5,7 +5,7 @@ import { Contract } from "@ethersproject/contracts";
 
 const IPFS = require('ipfs');
 
-const { abi } = require('../ethereum/build/Ad.json');
+const { abi } = require('../../ethereum/build/Ad.json');
 const contractAddress = "0x8d1d1467fe47f5ee1d923033117de927d91d1124";
 
 let node: any;
