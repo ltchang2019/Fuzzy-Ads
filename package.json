@@ -31,6 +31,7 @@
     "express": "^4.17.1",
     "ganache-cli": "^6.9.1",
     "hookrouter": "^1.2.3",
+    "husky": "^4.2.5",
     "ipfs": "^0.48.1",
     "js-cookie": "^2.2.1",
     "js-ipfs": "0.0.301",
