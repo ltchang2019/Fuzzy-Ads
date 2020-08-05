@@ -39,7 +39,11 @@ function AdCreativeForm(props: any) {
         const url = `https://gateway.ipfs.io/ipfs/${hash}`;
         console.log(url);
         
-        await contract.setMetadata(id, url);
+        try { 
+            await contract.setMetadata(id, url);
+        } catch {
+            setLoading(false);
+        }
 
         setLoading(false);
         console.log("finished");
