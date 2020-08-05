@@ -14,8 +14,6 @@ function BuyAds() {
         getListings();
     }, []);
 
-    
-
     function listSlots() {
         const items = listings.map((token: any) => {
             return {

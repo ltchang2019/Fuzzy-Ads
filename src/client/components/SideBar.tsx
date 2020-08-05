@@ -4,20 +4,17 @@ import { Link } from 'react-router-dom';
 function AdvertiserSideBar({ type }: any | undefined) {
     if (type.includes('/advertiser')) {
         return (
-            <div className="flex-item">
-                <h1>129,494</h1>
-                <br />
-                <p>people saw your ads</p>
+            <div className="flex-item" style={{marginRight: '30px'}}>
                 <ul className="button-list">
                     <li>
-                        <Link className="button" to="/advertiser/token-list">
+                        <Link className="button" to="/advertiser/buy-ads">
                             Buy an Ad
                         </Link>
                     </li>
     
                     <li>
-                        <Link className="button" to="/advertiser/current-ad">
-                            Current Ad
+                        <Link className="button" to="/advertiser/current-ads">
+                            Current Ads
                         </Link>
                     </li>
     
@@ -37,15 +34,18 @@ function AdvertiserSideBar({ type }: any | undefined) {
         )
     } else if(type.includes('/publisher')) {
         return (
-            <div className="flex-item">
-                <h1>129,494</h1>
-                <br />
-                <p>Total Earnings (USD)</p>
+            <div className="flex-item" style={{marginRight: '30px'}}>
                 <ul className="button-list">
                     <li>
                         <Link className="button" to="/publisher/payment-history">
                             Payment History
                         </Link>
+                    </li>
+
+                    <li>
+                        <a className="button" href="https://github.com/fuzzyads/fuzzy-ads-sdk" target="_blank">
+                            Embeddable SDK
+                        </a>
                     </li>
     
                     <li>

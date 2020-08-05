@@ -12,36 +12,36 @@ function PastAds() {
                 
                 <div className="ads">
                     <a href="#" className="ad">
-                        <img className="fuzzy-thumb" src="https://i.ibb.co/WzyZQLF/lego-ad-200x200.jpg" alt="lego-ad-200x200"></img>
+                        <img className="fuzzy-thumb" src="https://1000logos.net/wp-content/uploads/2016/11/Coca-Cola-Logo.png" alt="lego-ad-200x200"></img>
                         <ul>
-                            <li>Lego Cyclops Family</li>
+                            <li>Coca Cola</li>
                             <li>July 12, 2020</li>
-                            <li>483348 Impressions</li>
-                            <li>344 (usd)</li>
+                            <li>4833948 Impressions</li>
+                            <li>$3203 (usd)</li>
                         </ul>
                     </a>			
                 </div>
 
                 <div className="ads">
                     <a href="#" className="ad">
-                        <img className="fuzzy-thumb" src="https://i.ibb.co/WzyZQLF/lego-ad-200x200.jpg" alt="lego-ad-200x200"></img>
+                        <img className="fuzzy-thumb" src="https://marketingweek.imgix.net/content/uploads/2014/10/Coca_Cola.jpg?auto=compress,format&q=60&w=736&h=451" alt="lego-ad-200x200"></img>
                         <ul>
-                            <li>Lego Cyclops Family</li>
-                            <li>July 12, 2020</li>
-                            <li>483348 Impressions</li>
-                            <li>344 (usd)</li>
+                            <li>Coca Cola</li>
+                            <li>July 11, 2020</li>
+                            <li>6734800 Impressions</li>
+                            <li>$5857 (usd)</li>
                         </ul>
                     </a>			
                 </div>
 
                 <div className="ads">
                     <a href="#" className="ad">
-                        <img className="fuzzy-thumb" src="https://i.ibb.co/WzyZQLF/lego-ad-200x200.jpg" alt="lego-ad-200x200"></img>
+                        <img className="fuzzy-thumb" src="https://www.logotaglines.com/wp-content/uploads/2019/08/CocaCola-LogoTagline-Slogan.jpg" alt="lego-ad-200x200"></img>
                         <ul>
-                            <li>Lego Cyclops Family</li>
-                            <li>July 12, 2020</li>
-                            <li>483348 Impressions</li>
-                            <li>344 (usd)</li>
+                            <li>Coca Cola</li>
+                            <li>July 11, 2020</li>
+                            <li>574246 Impressions</li>
+                            <li>$5121 (usd)</li>
                         </ul>
                     </a>			
                 </div>

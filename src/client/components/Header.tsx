@@ -3,11 +3,34 @@ import { Menu } from 'semantic-ui-react';
 import { Dropdown, DropdownButton } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useWeb3React } from "@web3-react/core";
-import MetamaskLogo from '../assets/images/metamask-logo.png';
+import PublisherSwitch from '../assets/images/switch-publisher.png';
+import AdvertiserSwitch from '../assets/images/switch-advertiser.png';
 import '../assets/style/style.css';
 
-function Header() {
+var toggle;
+function Header({ type }: any | undefined) {
     const { account } = useWeb3React();
+
+    if(type.includes('/advertiser')) {
+        toggle = (
+            <div style={{marginTop: '-30px'}}>
+                <a href='/publisher'>
+                    <img src={AdvertiserSwitch} style={{width: '30%', height: '50px'}}></img> 
+                </a>
+            </div>
+        );
+    } else if(type.includes('/publisher')) {
+        toggle = (
+            <div style={{marginTop: '-30px'}}>
+                <a href='/advertiser' style={{marginTop: '-30px'}}>
+                    <img src={PublisherSwitch} style={{width: '30%', height: '50px'}}></img> 
+                </a>
+            </div>
+        );
+    } else {
+        toggle = <div></div>;
+    }
+
 
     function metamaskComponent() {
         const accountString = `${account?.toLowerCase().slice(0,8)}...${account?.toLowerCase().slice(35, 41)}`
@@ -25,18 +48,21 @@ function Header() {
             </div>
         );
     }
-
+    
     return (
-        <Menu style={{marginTop: '10px'}} color='orange' secondary>
-            <Menu.Item href='/'>
-                <img src="https://ipfs.io/ipfs/QmVprAMVkhWoiMsTpTbY7amoM96w1syCXYXjFgyvwsJLoa" style={{width: 100, height: 100}}></img>
-            </Menu.Item>
+        <div style={{textAlign: 'center'}}>
+            <Menu style={{marginTop: '10px'}} color='orange' secondary>
+                <Menu.Item href='/'>
+                    <img src="https://ipfs.io/ipfs/QmVprAMVkhWoiMsTpTbY7amoM96w1syCXYXjFgyvwsJLoa" style={{width: 100, height: 100}}></img>
+                </Menu.Item>
+                
+                <Menu.Item position='right'>
+                    {metamaskComponent()}
+                </Menu.Item>
+            </Menu> 
 
-            
-            <Menu.Item position='right'>
-                {metamaskComponent()}
-            </Menu.Item>
-        </Menu>
+            {toggle}
+        </div>
     );
 }
 

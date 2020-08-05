@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { Form, Input, Button } from 'semantic-ui-react';
 import { useWeb3React } from "@web3-react/core";
 import { Contract } from "@ethersproject/contracts";
@@ -9,17 +10,21 @@ const { abi } = require('../../ethereum/build/Ad.json');
 const contractAddress = "0x8d1d1467fe47f5ee1d923033117de927d91d1124";
 
 let node: any;
-function AdCreativeForm() {   
-    const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
-    const [redirectUrl, setRedirectUrl] = useState("");
-    const [imageUrl, setImageUrl] = useState("");
+function AdCreativeForm(props: any) {   
+    const [title, setTitle] = useState("Coca Cola");
+    const [description, setDescription] = useState("Taste the feeling.");
+    const [redirectUrl, setRedirectUrl] = useState("coca-cola.com");
+    const [imageUrl, setImageUrl] = useState("https://lh3.googleusercontent.com/proxy/RfEnFQ_UEkmEvtuWDfLagj2Ttiu_JLhsTb3GTcDMis_8XWAcY3_6plKnIFjTwo_Y25hxDiS7VB3jlxgqzO4bxdpmHKwS5hW_JwuwTTHLlZpWlWnIEcpPhcRiwRTkyjaIyq33_PK8UZqAroyaYbKS27QvC4M4Em8");
     const [loading, setLoading] = useState(false);
 
     const { library, account } = useWeb3React();
     const contract = new Contract(contractAddress, abi, library.getSigner());
+    const { id } = useParams(); 
+
+    console.log(props)
 
     async function publish() {
+        setLoading(true);
         const node = await IPFS.create({ silent: true });
         const file = await node.add({
             content: JSON.stringify({
@@ -31,18 +36,20 @@ function AdCreativeForm() {
         });
 
         const hash = file.path;
-        console.log(`Link: https://gateway.ipfs.io/ipfs/${hash}`);
+        const url = `https://gateway.ipfs.io/ipfs/${hash}`;
+        console.log(url);
         
-        contract.getMetadata(11).then(console.log);
+        await contract.setMetadata(id, url);
 
-        console.log("FINISHED");
+        setLoading(false);
+        console.log("finished");
     }
 
     return (
-        <div>
+        <div style={{width: '40%', textAlign: 'left'}}>
             <Form onSubmit={() => publish()} style={{ marginTop: 20 }}>
                 <Form.Field>
-                    <label>Ad Title</label>
+                    <label>Title</label>
                     <Input 
                         placeholder='title'
                         value={title}
@@ -74,7 +81,7 @@ function AdCreativeForm() {
                     />
                 </Form.Field>
 
-                <Button primary loading={loading}>Submit Changes</Button>
+                <Button color='orange' floated='right' loading={loading}>Submit Changes</Button>
             </Form>
         </div>
     );
