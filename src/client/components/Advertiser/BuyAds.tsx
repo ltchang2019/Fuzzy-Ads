@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Button, Icon } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 
 function BuyAds() {
     const [listings, setListings] = useState([]);
@@ -28,12 +29,14 @@ function BuyAds() {
                 ),
                 description: token.description,
                 href: token.permalink,
+                target: "_blank",
                 extra: (
                     <Button 
                         className='ui orange button' 
                         href={token.permalink}                         
                         color='orange'
                         fluid
+                        target="_blank"
                     >
                         <Icon name='shopping cart' />
                         Buy/Learn More

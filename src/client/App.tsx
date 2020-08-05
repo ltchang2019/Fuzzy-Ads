@@ -6,6 +6,8 @@ import './assets/style/style.css';
 import Header from './components/Header';
 import SideBar from './components/SideBar';
 
+import Landing from './components/Landing';
+
 import BuyAds from './components/Advertiser/BuyAds';
 import PastAds from './components/Advertiser/PastAds';
 import AdCreativeForm from './components/Advertiser/AdCreativeForm';
@@ -42,6 +44,8 @@ const App = ({injectedConnector}: any) => {
 
         <div className="fuzzy-data dropshadow" style={{height: '70vh', minWidth: '50%'}}>
           <SideBar type={path}/>
+
+          <Route exact path='/' component={() => <Landing />}/>
 
           <Route exact path='/advertiser/buy-ads' component={() => <BuyAds />} />
           <Route exact path='/advertiser/current-ads' component={() => <CurrentAds />} />
