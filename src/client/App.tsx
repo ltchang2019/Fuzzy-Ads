@@ -55,7 +55,7 @@ const App = ({injectedConnector}: any) => {
 
           <Route exact path='/publisher/payment-history' component={() => <PaymentHistory />} />
           <Route exact path='/publisher/how-to' component={() => <HowToPublisher />} />
-        </div>
+        </div>        
       </BrowserRouter>
     )}
     </Container>
