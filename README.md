@@ -1,4 +1,8 @@
 # fuzzy-ads-app
+**Contributors:** Elijah Tai, Luis Freitas, Brent Lagerman
+**Demo Video:** https://www.youtube.com/watch?v=3mAsqMFlsWU&feature=youtu.be
+**Link to full project org repository:** https://github.com/fuzzyads
+**Link to HackFS Submission:** https://hack.ethglobal.co/showcase/fuzzy-ads-reciHYfa9iUs4C8sO
 
 ## Setting up Textile Hub
 

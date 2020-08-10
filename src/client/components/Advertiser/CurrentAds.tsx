@@ -2,11 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useWeb3React } from "@web3-react/core";
 import { Card, Button, Icon } from 'semantic-ui-react';
-import PhotoPlaceholder from '../../assets/images/photo-placeholder-icon.jpg';
 import { Contract } from "@ethersproject/contracts";
-import HowToAdvertiser from './HowToAdvertiser';
 
-const { abi } = require('../../ethereum/build/Ad.json');
+const { abi } = require('../../../ethereum/build/Ad.json');
 const contractAddress = "0x8d1d1467fe47f5ee1d923033117de927d91d1124";
 
 type card = {
